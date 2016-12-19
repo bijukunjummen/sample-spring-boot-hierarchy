@@ -1,0 +1,45 @@
+buildscript {
+    ext {
+        springBootVersion = '1.4.2.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+
+ext {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
+
+jar {
+    baseName = 'sample-spring-boot-hierarchy'
+    version =  '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+//    compile("org.springframework.cloud:spring-cloud-starter")
+//    compile("org.springframework.cloud:spring-cloud-starter-hystrix")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:Camden.SR3"
+    }
+}
